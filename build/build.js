@@ -1,13 +1,18 @@
 var gui = new dat.GUI();
 var params = {
-    Ellipse_Size: 30,
+    N: 3145,
     Download_Image: function () { return save(); },
 };
-gui.add(params, "Ellipse_Size", 0, 100, 1);
+gui.add(params, "N", 0, 5000, 1);
 gui.add(params, "Download_Image");
 function draw() {
-    background(0);
-    ellipse(mouseX, mouseY, params.Ellipse_Size);
+    background('#03cffc');
+    randomSeed(0);
+    noStroke();
+    fill(194, 244, 255, 100);
+    for (var i = 0; i < params.N; ++i) {
+        ellipse(random(width), random(height), 30);
+    }
 }
 function setup() {
     p6_CreateCanvas();
