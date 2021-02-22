@@ -19,8 +19,13 @@ function draw() {
     randomSeed(0)
     noStroke()
     fill(194, 244, 255, 100)
+    translate(width/2, height/2)
     for (let i = 0; i < params.N; ++i) {
-        ellipse(random(width), random(height), 30)
+        const angle = random(TWO_PI)
+        const radius = random(0.4 * width)
+        // ellipse(radius * cos(angle), radius * sin(angle), 30)
+        const p = p5.Vector.fromAngle(angle).mult(radius)
+        ellipse(p.x, p.y, 30)
     }
 }
 

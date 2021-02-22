@@ -10,8 +10,12 @@ function draw() {
     randomSeed(0);
     noStroke();
     fill(194, 244, 255, 100);
+    translate(width / 2, height / 2);
     for (var i = 0; i < params.N; ++i) {
-        ellipse(random(width), random(height), 30);
+        var angle = random(TWO_PI);
+        var radius = random(0.4 * width);
+        var p = p5.Vector.fromAngle(angle).mult(radius);
+        ellipse(p.x, p.y, 30);
     }
 }
 function setup() {
