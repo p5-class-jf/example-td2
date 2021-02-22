@@ -1,19 +1,26 @@
 var gui = new dat.GUI();
 var params = {
-    N: 3145,
+    N: 2712,
+    Dispersion: 0.17,
+    Opacity: 17,
     Download_Image: function () { return save(); },
 };
 gui.add(params, "N", 0, 5000, 1);
+gui.add(params, "Dispersion", 0, 0.5, 0.0001);
+gui.add(params, "Opacity", 0, 255, 1);
 gui.add(params, "Download_Image");
 function draw() {
     background('#03cffc');
     randomSeed(0);
     noStroke();
-    fill(194, 244, 255, 100);
+    fill(194, 244, 255, params.Opacity);
     translate(width / 2, height / 2);
     for (var i = 0; i < params.N; ++i) {
         var angle = random(TWO_PI);
-        var radius = random(0.4 * width);
+        var radius = randomGaussian(0, params.Dispersion * width);
+        while (abs(radius) > params.Dispersion * width) {
+            radius = randomGaussian(0, params.Dispersion * width);
+        }
         var p = p5.Vector.fromAngle(angle).mult(radius);
         ellipse(p.x, p.y, 30);
     }
